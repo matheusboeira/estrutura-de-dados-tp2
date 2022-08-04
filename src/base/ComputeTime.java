@@ -6,6 +6,9 @@ import java.time.Instant;
 import app.Program;
 import base.enums.Color;
 import utils.App;
+import utils.MapList;
+import utils.MapTree;
+import utils.MapVector;
 
 public class ComputeTime<T extends Generic> {
     public void insertData(T type) {
@@ -58,6 +61,27 @@ public class ComputeTime<T extends Generic> {
         App.printf(Color.PURPLE_BG, "%8s %2s s%9s", " ", Duration.between(start, end).toSeconds(), " ");
         App.printf(Color.BLUE_BG, "%8s %6s ms%14s", " ", Duration.between(start, end).toMillis(), " ");
         App.printf(Color.WHITE_BG, "%14s %11s ns%18s", " ", Duration.between(start, end).toNanos(), " ");
+        System.out.println();
+    } 
+
+    public static void getTimePrint(MapVector mapVector, MapList mapList, MapTree mapTree) {
+        Instant start_1 = Instant.now();
+        mapVector.printSorted();
+        Instant end_1 = Instant.now();
+
+        Instant start_2 = Instant.now();
+        mapList.printSorted();
+        Instant end_2 = Instant.now();
+
+        Instant start_3 = Instant.now();
+        System.out.println(mapTree);
+        Instant end_3 = Instant.now();
+
+        App.printf(Color.GREEN_BG, "%70s", String.format("Tempo de impressão ordenado (Vetor): %s ns", Duration.between(start_1, end_1).toNanos()));
+        System.out.println();
+        App.printf(Color.WHITE_BG, "%70s", String.format("Tempo de impressão ordenado (LDE): %s ns",  Duration.between(start_2, end_2).toNanos()));
+        System.out.println();
+        App.printf(Color.BLUE_BG, "%70s", String.format("Tempo de impressão ordenado (Árvore): %s ns",  Duration.between(start_3, end_3).toNanos()));
         System.out.println();
     }
 }

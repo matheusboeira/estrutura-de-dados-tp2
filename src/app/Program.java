@@ -36,5 +36,7 @@ public class Program {
         computeTimeTree.removeVehicles(mapTree);
         computeTimeTree.findFord(mapTree);
         mapTree.saveToFile();
+
+        ComputeTime.getTimePrint(mapVector, mapList, mapTree);
     }
 }
