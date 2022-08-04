@@ -7,7 +7,7 @@ import utils.MapTree;
 import utils.MapVector;
 
 public class Program {
-    public final static int SIZE = 100_000;
+    public final static int SIZE = 25;
 
     public static void main(String[] args) {
         App.clearScreen();
@@ -33,6 +33,8 @@ public class Program {
         mapVector.saveToFile();
 
         computeTimeTree.insertData(mapTree);
+        computeTimeTree.removeVehicles(mapTree);
+        computeTimeTree.findFord(mapTree);
         mapTree.saveToFile();
     }
 }

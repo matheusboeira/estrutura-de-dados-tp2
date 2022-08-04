@@ -22,47 +22,61 @@ public class MapTree implements Generic {
     }
 
     @Override
-    public int size() {
-        return 0;
-    }
-
-    @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        for (ABB a : abb) {
+            if (a != null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean containsKey(Object key) {
-        // TODO Auto-generated method stub
+        for (ABB a : abb) {
+            if (a.search((Integer) key) != null) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean containsValue(Object value) {
-        // TODO Auto-generated method stub
+        for (ABB a : abb) {
+            if (a.search((Vehicle) value) != null) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public Vehicle get(Object key) {
-        // TODO Auto-generated method stub
+        for (ABB a : abb) {
+            if (a.search((Integer) key) != null) {
+                return a.search((Integer) key).getValue();
+            }
+        }
         return null;
     }
     
     @Override
     public Vehicle put(Integer key, Vehicle value) {
         int hash = hash(key);
-        ABB abb = this.abb[hash];
+        var abb = this.abb[hash];
 
         if (abb == null) {
             abb = new ABB();
             abb.add(value);
             this.abb[hash] = abb;
+            return value;
         } else {
-            this.abb[hash].add(value);
+            if (this.abb[hash].search(value) == null) {
+                this.abb[hash].add(value);
+            }
+            return value;
         }
-        return value;
     }
 
     public void saveToFile() {
@@ -77,57 +91,27 @@ public class MapTree implements Generic {
     }
 
     @Override
-    public Vehicle remove(Object key) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void putAll(Map<? extends Integer, ? extends Vehicle> m) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void clear() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public Set<Integer> keySet() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Collection<Vehicle> values() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Set<Entry<Integer, Vehicle>> entrySet() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void sort() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public void removeVehicles() {
-        // TODO Auto-generated method stub
+        for (int i = 0; i <= 4; i++) {
+            abb[i] = null;
+        }
+        NodeTree<Vehicle> toRemove;
         
+        if (abb[5] != null && (toRemove = abb[5].search(202050000)) != null) {
+            abb[5].remove(toRemove.getValue());
+        }
     }
 
     @Override
     public int findFord() {
-        // TODO Auto-generated method stub
-        return 0;
+        int count = 0;
+
+        for (ABB a : abb) {
+            if (a != null) {
+                count += a.findFord();
+            }
+        }
+        return count;
     }
     
     public String toString() {
@@ -139,5 +123,45 @@ public class MapTree implements Generic {
             }
         } 
         return sb.toString();
+    }
+
+    @Override
+    public Vehicle remove(Object key) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void putAll(Map<? extends Integer, ? extends Vehicle> m) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void clear() {
+        abb = null;
+    }
+
+    @Override
+    public Set<Integer> keySet() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Collection<Vehicle> values() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Set<Entry<Integer, Vehicle>> entrySet() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void sort() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public int size() {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }
