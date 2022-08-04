@@ -207,16 +207,17 @@ public class ABB {
     }
 
     public int findFord() {
-        // howManyFords = 0;
+        howManyFords = 0;
         findFord(this.root);
-        // System.out.println(howManyFords);
         return howManyFords;
     }
     
     private void findFord(NodeTree<Vehicle> node) {
         if (node != null) {
             findFord(node.getLeft());
-            howManyFords++;
+            if (node.getValue().isMarcaFord()) {
+                howManyFords++;
+            }
             findFord(node.getRight());
         }
     }
